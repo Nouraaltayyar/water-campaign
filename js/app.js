@@ -10,7 +10,11 @@ let auth,db,me=null,isAdmin=false,cat="الكل",hero={...seed.hero},posts=[...s
 function toast(t){const e=$("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",3500)}
 function errMsg(e){const m={"auth/email-already-in-use":"هذا الإيميل مسجّل من قبل","auth/invalid-email":"الإيميل غير صحيح","auth/weak-password":"كلمة المرور ضعيفة (6 خانات على الأقل)","auth/invalid-credential":"الإيميل أو كلمة المرور غير صحيحة","auth/too-many-requests":"محاولات كثيرة، انتظري شوي"};return m[e.code]||"صار خطأ، حاولي مرة ثانية"}
 
-function head(){$("hTitle").textContent=hero.title;$("hSub").textContent=hero.sub}
+function head(){
+  const t=$("hTitle");t.textContent="";
+  hero.title.split("الذهب").forEach((p,i,arr)=>{t.append(p);if(i<arr.length-1){const e=document.createElement("em");e.textContent="الذهب";t.append(e)}});
+  $("hSub").textContent=hero.sub;
+}
 function nav(){
   const n=$("navr");n.innerHTML="";
   if(!me){const b=document.createElement("button");b.className="btn sm gold";b.textContent="تسجيل الدخول";b.onclick=()=>$("dlg").showModal();n.appendChild(b);return}
